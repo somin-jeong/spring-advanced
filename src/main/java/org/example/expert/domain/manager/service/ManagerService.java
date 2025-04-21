@@ -46,7 +46,7 @@ public class ManagerService {
             throw new InvalidRequestException("일정 작성자는 본인을 담당자로 등록할 수 없습니다.");
         }
 
-        Manager newManagerUser = new Manager(managerUser, todo);
+        Manager newManagerUser = new Manager(managerUser);
         Manager savedManagerUser = managerRepository.save(newManagerUser);
 
         return new ManagerSaveResponse(
@@ -74,8 +74,8 @@ public class ManagerService {
     }
 
     @Transactional
-    public void deleteManager(long userId, long todoId, long managerId) {
-        User user = userRepository.findById(userId)
+    public void deleteManager(AuthUser authUser, long todoId, long managerId) {
+        User user = userRepository.findById(authUser.getId())
                 .orElseThrow(() -> new InvalidRequestException("User not found"));
 
         Todo todo = todoRepository.findById(todoId)

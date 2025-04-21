@@ -79,7 +79,8 @@ class ManagerServiceTest {
         Todo todo = new Todo("Title", "Contents", "Sunny", user);
         ReflectionTestUtils.setField(todo, "id", todoId);
 
-        Manager mockManager = new Manager(todo.getUser(), todo);
+        Manager mockManager = new Manager(todo.getUser());
+        mockManager.setTodo(todo);
         List<Manager> managerList = List.of(mockManager);
 
         given(todoRepository.findById(todoId)).willReturn(Optional.of(todo));
