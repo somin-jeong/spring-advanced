@@ -41,11 +41,10 @@ class TodoRepositoryTest {
         Todo todo1 = new Todo("title1", "content1", "Sunny", savedUser);
         ReflectionTestUtils.setField(todo1, "createdAt", LocalDateTime.now().minusDays(2));
         ReflectionTestUtils.setField(todo1, "modifiedAt", LocalDateTime.now().minusDays(2));
-        ReflectionTestUtils.setField(todo1, "id", 1L);
+
         Todo todo2 = new Todo("title2", "content2", "Chilly", savedUser);
         ReflectionTestUtils.setField(todo2, "createdAt", LocalDateTime.now().minusDays(1));
         ReflectionTestUtils.setField(todo2, "modifiedAt", LocalDateTime.now().minusDays(1));
-        ReflectionTestUtils.setField(todo2, "id", 2L);
 
         todoRepository.save(todo1);
         todoRepository.save(todo2);

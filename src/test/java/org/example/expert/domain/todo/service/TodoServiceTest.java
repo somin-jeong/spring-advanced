@@ -3,8 +3,6 @@ package org.example.expert.domain.todo.service;
 import org.example.expert.client.WeatherClient;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.common.exception.InvalidRequestException;
-import org.example.expert.domain.manager.entity.Manager;
-import org.example.expert.domain.manager.repository.ManagerRepository;
 import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
@@ -36,8 +34,7 @@ class TodoServiceTest {
     private TodoRepository todoRepository;
     @Mock
     private WeatherClient weatherClient;
-    @Mock
-    private ManagerRepository managerRepository;
+
     @InjectMocks
     private TodoService todoService;
 
@@ -48,11 +45,9 @@ class TodoServiceTest {
         User user = User.fromAuthUser(authUser);
         TodoSaveRequest todoSaveRequest = new TodoSaveRequest("title", "contents");
         Todo todo = new Todo("title", "contents", "Chilly", user);
-        Manager manager = new Manager(user, todo);
 
         given(weatherClient.getTodayWeather()).willReturn("Chilly");
         given(todoRepository.save(any())).willReturn(todo);
-        given(managerRepository.save(any())).willReturn(manager);
 
         // then
         TodoSaveResponse todoSaveResponse = todoService.saveTodo(authUser, todoSaveRequest);
